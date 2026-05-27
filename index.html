@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Alwin Soly — AI & Software Engineer</title>
+<meta name="description" content="AI and software engineer building LLM systems, RAG pipelines, and cloud applications. Based in Germany." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,700&family=JetBrains+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0e0e10;
+    --bg-2: #15151a;
+    --ink: #ececec;
+    --ink-dim: #9a9aa3;
+    --line: #26262c;
+    --accent: #d4ff3a;
+    --accent-2: #ff7a59;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'Inter Tight', system-ui, sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body::before{
+    content:"";
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(800px 500px at 80% -10%, rgba(212,255,58,0.06), transparent 60%),
+      radial-gradient(700px 400px at -10% 110%, rgba(255,122,89,0.05), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  a{color: inherit; text-decoration: none}
+  .wrap{max-width: 1080px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1}
+
+  /* NAV */
+  nav{
+    position: sticky; top: 0;
+    backdrop-filter: blur(14px);
+    background: rgba(14,14,16,0.7);
+    border-bottom: 1px solid var(--line);
+    z-index: 50;
+  }
+  nav .row{display:flex; align-items:center; justify-content:space-between; padding: 18px 0}
+  nav .brand{font-family: var(--mono); font-size: 13px; letter-spacing: 0.04em}
+  nav .brand::before{content:"●"; color: var(--accent); margin-right: 8px}
+  nav ul{display:flex; gap: 28px; list-style:none}
+  nav ul a{font-family: var(--mono); font-size: 12px; color: var(--ink-dim); transition: color .2s}
+  nav ul a:hover{color: var(--accent)}
+  @media (max-width: 640px){ nav ul{display:none} }
+
+  /* HERO */
+  header.hero{padding: 110px 0 90px; border-bottom: 1px solid var(--line)}
+  .eyebrow{
+    font-family: var(--mono); font-size: 12px;
+    color: var(--ink-dim); letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 28px; display:flex; align-items:center; gap:12px;
+  }
+  .eyebrow::before{
+    content:""; width:28px; height:1px; background: var(--accent);
+  }
+  h1{
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(44px, 7vw, 88px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+  }
+  h1 em{font-style: italic; color: var(--accent)}
+  h1 .ink-dim{color: var(--ink-dim)}
+  .lede{
+    font-size: 19px;
+    color: var(--ink-dim);
+    max-width: 620px;
+    line-height: 1.55;
+  }
+  .lede strong{color: var(--ink); font-weight: 500}
+  .hero-meta{
+    margin-top: 48px;
+    display:flex; gap: 32px; flex-wrap: wrap;
+    font-family: var(--mono); font-size: 12px; color: var(--ink-dim);
+  }
+  .hero-meta span::before{content:"→"; color: var(--accent); margin-right: 8px}
+
+  /* SECTIONS */
+  section{padding: 100px 0; border-bottom: 1px solid var(--line)}
+  .section-head{
+    display: grid; grid-template-columns: 220px 1fr; gap: 60px;
+    margin-bottom: 56px;
+    align-items: baseline;
+  }
+  @media (max-width: 720px){ .section-head{grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px} }
+  .section-label{
+    font-family: var(--mono); font-size: 12px;
+    color: var(--ink-dim); letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .section-label::before{content: attr(data-num); color: var(--accent); margin-right: 12px}
+  h2{
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(28px, 4vw, 42px); line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  h2 em{font-style: italic}
+
+  /* ABOUT */
+  .about-grid{display: grid; grid-template-columns: 220px 1fr; gap: 60px}
+  @media (max-width: 720px){ .about-grid{grid-template-columns: 1fr; gap: 16px} }
+  .about-body p{margin-bottom: 18px; color: var(--ink); max-width: 680px}
+  .about-body p:last-child{color: var(--ink-dim)}
+
+  /* PROJECTS */
+  .project{
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 60px;
+    padding: 36px 0;
+    border-top: 1px solid var(--line);
+    transition: background .3s;
+  }
+  .project:first-of-type{border-top: 1px solid var(--line)}
+  .project:hover{background: rgba(212,255,58,0.02)}
+  @media (max-width: 720px){ .project{grid-template-columns: 1fr; gap: 16px; padding: 28px 0} }
+  .project-meta{
+    font-family: var(--mono); font-size: 11px; color: var(--ink-dim);
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .project-meta .year{display:block; color: var(--accent); margin-bottom: 6px}
+  .project h3{
+    font-family: var(--serif); font-weight: 400;
+    font-size: 26px; line-height: 1.2; margin-bottom: 14px;
+    letter-spacing: -0.01em;
+  }
+  .project p{color: var(--ink-dim); margin-bottom: 18px; max-width: 640px}
+  .stack{display: flex; gap: 8px; flex-wrap: wrap}
+  .stack span{
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-dim); padding: 4px 10px;
+    border: 1px solid var(--line); border-radius: 999px;
+  }
+
+  /* SKILLS */
+  .skills{display:grid; grid-template-columns: repeat(3, 1fr); gap: 40px}
+  @media (max-width: 720px){ .skills{grid-template-columns: 1fr; gap: 24px} }
+  .skill-block h4{
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 14px;
+  }
+  .skill-block ul{list-style:none}
+  .skill-block li{
+    padding: 6px 0; color: var(--ink-dim);
+    border-bottom: 1px solid var(--line);
+    font-size: 15px;
+  }
+  .skill-block li:last-child{border-bottom: none}
+
+  /* CONTACT */
+  footer{padding: 100px 0 80px; text-align: left}
+  footer h2{margin-bottom: 32px}
+  .contact-list{list-style: none}
+  .contact-list li{
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: var(--mono); font-size: 14px;
+  }
+  .contact-list li:first-child{border-top: 1px solid var(--line)}
+  .contact-list .label{color: var(--ink-dim); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase}
+  .contact-list a{color: var(--ink); transition: color .2s}
+  .contact-list a:hover{color: var(--accent)}
+  .colophon{
+    margin-top: 60px;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-dim);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  }
+
+  /* reveal */
+  .reveal{opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease}
+  .reveal.in{opacity: 1; transform: translateY(0)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap row">
+    <div class="brand">alwin_soly.engineer</div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow reveal">Alwin Soly — Aachen, Germany — Open to roles</div>
+    <h1 class="reveal">
+      I build <em>AI systems</em><br>
+      <span class="ink-dim">that hold up in the</span><br>
+      real world.
+    </h1>
+    <p class="lede reveal">
+      Software engineer focused on <strong>LLM and RAG systems</strong>, with a background in
+      full-stack development and a master's in AI &amp; energy engineering. I work end to end —
+      from the model layer to the cloud deployment that runs it — and I care more about whether
+      the thing actually helps a user than whether it looks clever.
+    </p>
+    <div class="hero-meta reveal">
+      <span>Currently writing my master's thesis at FEV Europe</span>
+      <span>Available from 2026</span>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="section-label" data-num="01">About</div>
+      <div class="about-body">
+        <p>
+          I'm an engineer who likes the part where research becomes a product someone uses.
+          My recent work sits at the meeting point of LLMs and real systems — RAG pipelines,
+          context engineering, cloud deployment, and the messy in-between of making AI behave
+          predictably for non-expert users.
+        </p>
+        <p>
+          Before specializing in AI, I shipped a production web application at Infosys
+          (Java Spring Boot, React, SAML auth, Azure), which gave me a feel for the
+          unglamorous parts of software — testing, version control, releases, and the things
+          that go wrong at 2am.
+        </p>
+        <p>
+          I'm based in Germany, fluent in English (C1), still building my German (A2),
+          and looking for a team where I can take ownership and ship.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label" data-num="02">Selected Work</div>
+      <h2>Things I've <em>built</em> and shipped.</h2>
+    </div>
+
+    <article class="project reveal">
+      <div class="project-meta">
+        <span class="year">2025 / Ongoing</span>
+        Master's Thesis — FEV Europe
+      </div>
+      <div>
+        <h3>Cloud-Based Grid Simulation with GenAI Interpretation</h3>
+        <p>
+          A cloud-deployable platform where a RAG-based LLM helps engineers configure
+          complex power-grid simulations and then interprets the results back to them in plain
+          language. Built the architecture, the backend, the AI layer, and the deployment.
+          The hard part wasn't the model — it was designing the system so the AI quietly
+          removes friction for non-expert users.
+        </p>
+        <div class="stack">
+          <span>Python</span><span>MATLAB / Simulink</span><span>RAG</span>
+          <span>LLM</span><span>Cloud Deploy</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="project reveal">
+      <div class="project-meta">
+        <span class="year">2024</span>
+        Project Thesis — FAU
+      </div>
+      <div>
+        <h3>LLM Pipeline for Scientific Data Extraction</h3>
+        <p>
+          An LLM-powered pipeline to automatically extract structured scientific data from
+          research literature on Li-ion batteries. Designed the NLU classification logic,
+          evaluation metrics, and dataset structuring scripts for downstream ML use.
+          Taught me a lot about context engineering and how brittle these systems get when
+          model behavior drifts.
+        </p>
+        <div class="stack">
+          <span>Python</span><span>LLMs</span><span>NLU</span>
+          <span>Prompt Engineering</span><span>Evaluation</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="project reveal">
+      <div class="project-meta">
+        <span class="year">2024 — 2025</span>
+        Graduate Research Assistant — FAU
+      </div>
+      <div>
+        <h3>Power-Grid Visualization &amp; Optimization</h3>
+        <p>
+          Analyzed and optimized Python-based power-grid simulation code, hunted down
+          performance bottlenecks, and built visualization tools to help researchers make
+          decisions from complex grid data.
+        </p>
+        <div class="stack">
+          <span>Python</span><span>Data Viz</span><span>Performance</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="project reveal">
+      <div class="project-meta">
+        <span class="year">2021 — 2022</span>
+        Systems Engineer — Infosys
+      </div>
+      <div>
+        <h3>Production Web Application — Spring Boot + React</h3>
+        <p>
+          Developed and maintained a production web application with a Java Spring Boot
+          backend and React frontend. Implemented SAML authentication, did API testing
+          with Postman, used Git in a distributed team, and worked with Azure for deployment.
+        </p>
+        <div class="stack">
+          <span>Java</span><span>Spring Boot</span><span>React</span>
+          <span>SAML</span><span>Azure</span><span>Git</span>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label" data-num="03">Stack</div>
+      <h2>Tools I <em>actually</em> use.</h2>
+    </div>
+    <div class="skills">
+      <div class="skill-block reveal">
+        <h4>AI &amp; LLMs</h4>
+        <ul>
+          <li>Large Language Models</li>
+          <li>RAG pipelines</li>
+          <li>Prompt &amp; context engineering</li>
+          <li>PyTorch / TensorFlow</li>
+          <li>Evaluation &amp; benchmarking</li>
+        </ul>
+      </div>
+      <div class="skill-block reveal">
+        <h4>Software</h4>
+        <ul>
+          <li>Python</li>
+          <li>Java / Spring Boot</li>
+          <li>JavaScript / React</li>
+          <li>C# / .NET (learning)</li>
+          <li>MATLAB</li>
+        </ul>
+      </div>
+      <div class="skill-block reveal">
+        <h4>Cloud &amp; Workflow</h4>
+        <ul>
+          <li>Azure</li>
+          <li>REST APIs</li>
+          <li>Git, Postman</li>
+          <li>SAML / Auth</li>
+          <li>Agile / Scrum</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="section-label" data-num="04" style="margin-bottom: 24px">Contact</div>
+    <h2>Let's <em>talk</em>.</h2>
+    <ul class="contact-list">
+      <li><span class="label">Email</span><a href="mailto:alwinsolly@gmail.com">alwinsolly@gmail.com</a></li>
+      <li><span class="label">Phone</span><a href="tel:+4915510542947">+49 1551 0542947</a></li>
+      <li><span class="label">LinkedIn</span><a href="https://www.linkedin.com/in/alwinsoly" target="_blank" rel="noopener">linkedin.com/in/alwinsoly</a></li>
+      <li><span class="label">GitHub</span><a href="https://github.com/" target="_blank" rel="noopener">github.com/yourusername</a></li>
+      <li><span class="label">Location</span><span>Germany — open to relocation</span></li>
+    </ul>
+    <div class="colophon">
+      <span>© 2026 Alwin Soly</span>
+      <span>Built with HTML, CSS &amp; intent.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
